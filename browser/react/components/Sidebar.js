@@ -20,7 +20,7 @@ const Sidebar = (props) => {
       <section>
         <h4 className="text-muted">PLAYLISTS</h4>
         <h4>
-          <Link className="btn btn-primary btn-block" to={'/newPlaylist'}>
+          <Link className="btn btn-primary btn-block" to={'/playlist'}>
             <span className="glyphicon glyphicon-plus"></span> PLAYLIST
           </Link>
         </h4>
