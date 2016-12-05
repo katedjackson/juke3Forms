@@ -23,6 +23,7 @@ export default class AppContainer extends Component {
     this.prev = this.prev.bind(this);
     this.selectAlbum = this.selectAlbum.bind(this);
     this.selectArtist = this.selectArtist.bind(this);
+    this.selectPlaylist = this.selectPlaylist.bind(this);
   }
 
   componentDidMount () {
@@ -117,6 +118,15 @@ export default class AppContainer extends Component {
       .then(data => this.onLoadArtist(...data));
   }
 
+  selectPlaylist(playlistId) {
+    axios.get(`/api/playlists/${playlistId}`)
+    .then(res => res.data)
+    .then(playlist => {
+      playlist.songs = playlist.songs.map(convertSong);
+      this.setState({ selectedPlaylist: playlist});
+    });
+  }
+
   onLoadArtist (artist, albums, songs) {
     songs = songs.map(convertSong);
     albums = convertAlbums(albums);
@@ -140,6 +150,8 @@ export default class AppContainer extends Component {
         <div className="col-xs-2">
           <Sidebar
             playlists={this.state.playlists}
+            playlist={this.state.selectedPlaylist}
+            selectPlaylist = {this.state.selectPlaylist}
           />
         </div>
         <div className="col-xs-10">
